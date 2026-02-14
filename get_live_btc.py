@@ -5,7 +5,7 @@ import json
 COINBASE_WEBSOCKETS = 'wss://advanced-trade-ws.coinbase.com'
 products = ["BTC-USD"]
 
-async def main():
+async def btc_pricer(queue):
 
     async with websockets.connect(COINBASE_WEBSOCKETS) as websocket:
 
@@ -23,7 +23,9 @@ async def main():
             for event in message.get("events", []):
                 for ticker in event.get("tickers", []):
                     price = ticker.get('price')
-
+                    await queue.put(float(price))
                     print(f"\rBTC-USD: {price} ", end="", flush=True)
+
+            return message
 
 asyncio.run(main())

@@ -1,7 +1,6 @@
 import asyncio
 import websockets
 import json
-import collections
 
 COINBASE_WEBSOCKETS = 'wss://advanced-trade-ws.coinbase.com'
 products = ["BTC-USD"]
